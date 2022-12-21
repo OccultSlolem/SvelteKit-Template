@@ -1,0 +1,5 @@
+/* Any files using Tailwind and/or DaisyUI classes must import this file */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
