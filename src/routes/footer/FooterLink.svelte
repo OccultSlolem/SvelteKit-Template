@@ -3,7 +3,6 @@
 
     export let path: string;
     export let link: string;
-    export let name: string;
 </script>
 
 <a class="flex pl-2 justify-center items-center" href={link}>

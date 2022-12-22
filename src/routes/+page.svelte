@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="hero min-h-screen bg-base-100">
+<div class="hero min-h-screen bg-base-300">
 	<div class="hero-content text-center">
 		<div class="max-w-md">
 			<h1 class="text-5xl font-bold">Template!</h1>
