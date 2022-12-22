@@ -1,4 +1,5 @@
 <script>
+	import Footer from './footer/Footer.svelte';
 	import Navbar from './Navbar.svelte';
 	// import './styles.css';
 </script>
@@ -10,7 +11,5 @@
 		<slot />
 	</main>
 
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
+	<Footer />
 </div>

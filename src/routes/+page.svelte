@@ -3,4 +3,13 @@
 	import "./tailwind.css";
 	
 </script>
-<h1>Hey</h1>
+
+
+<div class="hero min-h-screen bg-base-100">
+	<div class="hero-content text-center">
+		<div class="max-w-md">
+			<h1 class="text-5xl font-bold">Template!</h1>
+			<p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+		</div>
+	</div>
+</div>
