@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Footer from './footer/Footer.svelte';
-	import Navbar from './Navbar.svelte';
+	import Footer from '../footer/Footer.svelte';
+	import Navbar from '../Navbar.svelte';
 	import SvgIcon from '@jamescoyle/svelte-icon';
-	import { mdiMenu, mdiHome, mdiAccount, mdiEmail } from '@mdi/js';
+	import { mdiHome, mdiAccount, mdiEmail } from '@mdi/js';
 
 	// import './styles.css';
 
