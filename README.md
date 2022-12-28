@@ -1,18 +1,43 @@
-# create-svelte
+# SvelteKit-Template
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A SvelteKit + Tailwind/DaisyUI + Firebase app template. Some assembly required.
 
-## Creating a project
+## Setup
 
-If you're seeing this, you've probably already done this step. Congrats!
+1.) Clone the repository.
+2.) Place a .env file on the project root and fill it with the requisite keys from Firebase.
+3.) Under src/routes/+layout.svelte, set up the navigation links.
+4.) Run `npm i` to install dependencies.
+5.) Run `npm run dev` to build for devlopment.
+6.) Run `npm run build` to build for production.
+7.) Set up reCAPTCHA for AppCheck
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+The SvelteKit router is filesystem based, so if you want to create a new route you have to
+create a new folder under the src/routes folder, like so:
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- src
+ - routes
+  - route-name
+   - +page.svelte
+   - +layout.svelte (Use <slot/> to insert the contents of +page.svelte)
+
+## Features
+
+ - Tailwind + DaisyUI
+  - Automatic dark mode switcher
+ - Firebase
+  - Auth
+   - User settings, signin/signout, etc
+  - Functions
+  - Firestore
+  - Storage
+  - AppCheck with reCAPTCHA
+  - Analytics
+   - When in supported environment (ie production)
+  - Emulators
+   - Automatically uses emulators when in development mode
+ - Hiding sensitive values (like the Firebase API key) using DotENV
+  - See .env.example to see what values you need to insert
 
 ## Developing
 

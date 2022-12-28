@@ -1,9 +1,10 @@
 <!-- Front page -->
 <script lang="ts">
 	import "../tailwind.css";
-	
+	import SignInModal from "../components/SignInModal.svelte";
 </script>
 
+<SignInModal />
 
 <div class="hero min-h-screen bg-base-300">
 	<div class="hero-content text-center">
