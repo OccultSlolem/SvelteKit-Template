@@ -12,6 +12,33 @@
   import SvgIcon from '@jamescoyle/svelte-icon';
   import { auth } from '$lib/Firebase';
 
+  const signInOptions = [
+    {
+      name: "Sign in with Google",
+      follow: handleGoogleSignIn,
+    },
+    {
+      name: "Sign in with Apple",
+      follow: handleAppleSignIn,
+    },
+  ]
+
+  const formGroups = [
+    {
+      label: "Email",
+      placeholder: "info@site.com",
+      type: "email",
+      // Sets relevant variables when the input changes.
+      bind: (e: Event) => { email = (e.target as HTMLInputElement).value }
+    },
+    {
+      label: "Password",
+      placeholder: "********",
+      type: "password",
+      bind: (e: Event) => { password = (e.target as HTMLInputElement).value }
+    }
+  ]
+
   /**
    * When true, prevents email enumeration by only displaying a generic
    * "password reset email sent" message.
@@ -26,10 +53,8 @@
 
   let is_forgot_password = false;
   let is_loading = false;
-
   let error: string | undefined = undefined;
   let info: string | undefined = undefined;
-
   let email = "";
   let password = "";
 
@@ -66,7 +91,7 @@
   }
 
   function handleSuccess() {
-    const modal = document.getElementById("signin-modal");
+    const modal = document.getElementById("signin-modal") as HTMLInputElement;
     modal.checked = false;
     is_loading = false;
     is_forgot_password = false;
@@ -199,16 +224,6 @@
       .catch((err: any) => handleFail(err));
   }
 
-  const signInOptions = [
-    {
-      name: "Sign in with Google",
-      follow: handleGoogleSignIn,
-    },
-    {
-      name: "Sign in with Apple",
-      follow: handleAppleSignIn,
-    },
-  ]
 </script>
 
 <svelte:window on:keydown="{handleKeydown}" />
@@ -238,40 +253,29 @@
         >
           X
         </label>
-        <button
+        <h2
           class="font-bold text-lg"
-          on:click={handlePasswordSignIn}
         >
           Log in
-        </button>
+        </h2>
       {/if}
     </div>
     <!-- Body -->
     <div class="modal-body">
       <form>
-        <div class="form-group">
-
-          <label for="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            class="input w-full"
-            bind:value={email}
-          />
-
-        {#if !is_forgot_password}
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            class="input w-full"
-            bind:value={password}
-          />
-        {/if}
+        <div class="form-control">
+          <!-- Inputs -->
+          {#each formGroups as item}
+            <label class="input-group pt-2 pb-2">
+              <span>{item.label}</span>
+              <input 
+                type={item.type}
+                placeholder={item.placeholder}
+                class="input input-bordered w-full"
+                on:input={item.bind}
+              />
+            </label>
+          {/each}
         </div>
 
         <div class="divider"></div>

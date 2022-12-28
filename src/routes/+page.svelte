@@ -2,12 +2,14 @@
 <script lang="ts">
 	import "../tailwind.css";
 	import SignInModal from "../components/SignInModal.svelte";
+	import SignupModal from "../components/SignupModal.svelte";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
 </script>
 
-<SignInModal auth={data.auth} />
+<SignInModal />
+<SignupModal />
 
 <div class="hero min-h-screen bg-base-300">
 	<div class="hero-content text-center">

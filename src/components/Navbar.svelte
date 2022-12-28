@@ -79,7 +79,7 @@
           </li>
         {:else}
           <li><label for="signin-modal" class="btn btn-ghost">Log in</label></li>
-          <li><button class="btn btn-ghost">Sign up</button></li>
+          <li><label for="signup-modal" class="btn btn-ghost">Sign up</label></li>
         {/if} 
       </ul>
     </div>
