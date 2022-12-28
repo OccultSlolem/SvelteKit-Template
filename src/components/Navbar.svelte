@@ -3,7 +3,9 @@
   import SignInModal from "./SignInModal.svelte";
   import SvgIcon from "@jamescoyle/svelte-icon";
   import { mdiMenu, mdiHome, mdiAccount, mdiMessage } from "@mdi/js";
-  import { user } from "../Firebase.svelte";
+  import { type User } from "firebase/auth";
+
+  export let user: User | null;
 
   export let navItems: { name: string; icon: string; link: string }[] = [];
 </script>

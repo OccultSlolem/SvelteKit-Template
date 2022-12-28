@@ -2,9 +2,12 @@
 <script lang="ts">
 	import "../tailwind.css";
 	import SignInModal from "../components/SignInModal.svelte";
+	import type { PageData } from "./$types";
+
+	export let data: PageData;
 </script>
 
-<SignInModal />
+<SignInModal auth={data.auth} />
 
 <div class="hero min-h-screen bg-base-300">
 	<div class="hero-content text-center">

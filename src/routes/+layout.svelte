@@ -3,6 +3,15 @@
   import Navbar from "../components/Navbar.svelte";
   import SvgIcon from "@jamescoyle/svelte-icon";
   import { mdiHome, mdiAccount, mdiMessage } from "@mdi/js";
+  import type { PageData } from "./$types";
+  import { goto } from "$app/navigation";
+  import { type User, onAuthStateChanged } from "firebase/auth";
+
+  export let data: PageData;
+
+  onAuthStateChanged(data.auth, (user: User) => {
+    goto("/");
+  });  
 
   const navItems = [
     // On desktop, these will be shown in the center of the navbar
@@ -35,7 +44,7 @@
 
     <div class="drawer-content">
       <!-- Page content goes here -->
-      <Navbar {navItems} />
+      <Navbar {navItems} user={data.user} />
 
       <main>
         <slot />

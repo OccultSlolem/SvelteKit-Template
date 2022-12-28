@@ -1,15 +1,17 @@
 <script lang="ts">
   import {
     type User,
+    type Auth,
     GoogleAuthProvider,
     OAuthProvider,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithPopup
   } from "firebase/auth";
-  import { auth } from "../routes/Firebase.svelte";
   import { mdiAlertCircle, mdiInformationOutline } from '@mdi/js';
   import SvgIcon from '@jamescoyle/svelte-icon';
+
+  export let auth: Auth;
 
   const appleProvider = new OAuthProvider("apple.com");
   appleProvider.addScope('email');
