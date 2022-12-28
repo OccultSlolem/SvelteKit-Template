@@ -5,11 +5,17 @@ A SvelteKit + Tailwind/DaisyUI + Firebase app template. Some assembly required.
 ## Setup
 
 1.) Clone the repository.
+
 2.) Place a .env file on the project root and fill it with the requisite keys from Firebase.
+
 3.) Under src/routes/+layout.svelte, set up the navigation links.
+
 4.) Run `npm i` to install dependencies.
+
 5.) Run `npm run dev` to build for devlopment.
+
 6.) Run `npm run build` to build for production.
+
 7.) Set up reCAPTCHA for AppCheck
 
 The SvelteKit router is filesystem based, so if you want to create a new route you have to
