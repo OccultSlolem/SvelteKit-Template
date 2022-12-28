@@ -36,3 +36,9 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Special instructions for Codespaces
+
+To access a desktop environment using noVNC, forward port 6080 in the ports view.
+
+You should also be able to access a proper VNC environment by forwarding 5901, but I haven't had much luck here.

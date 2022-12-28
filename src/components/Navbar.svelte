@@ -1,15 +1,8 @@
 <script lang="ts">
 
-    import "./tailwind.css";
+    import "../tailwind.css";
     import SvgIcon from '@jamescoyle/svelte-icon';
     import { mdiMenu, mdiHome, mdiAccount, mdiMessage } from '@mdi/js';
-	  import { onAuthStateChanged, type User } from "firebase/auth";
-    import auth from "./Firebase.svelte"
-    let user: User | null = null;
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      user = user;
-    })
 
     const centerNavbarButtons = [
       // These only get shown on desktop screens and when the user is signed in
@@ -44,7 +37,7 @@
       </a>
     </div>
 
-    {#if user}
+    <!-- {#if user} -->
       <div class="navbar-center max-md:hidden">
         <div class="btn-group">
           {#each centerNavbarButtons as item}
@@ -60,14 +53,26 @@
           
         </div>
       </div>
-    {/if}
+    <!-- {/if} -->
 
     <div class="navbar-end">
-      <!-- TODO: Hover dropdown -->
-      <div class="avatar pr-5 placeholder">
-        <div class="w-8 rounded-full bg-base-300">
-          T
+      <!-- DaisyUI avatar with a dropdown -->
+      <!-- {#if user} -->
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" class="m-1 btn btn-ghost rounded-full">
+            <div class="avatar online avatar-placeholder">
+              <span>u</span>
+            </div>
+            <!-- <img src={user.photo} alt="Avatar" class="avatar" /> -->
+          </div>
+          <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+            <!-- {#if user} -->
+              <li>a</li>
+              <li>b</li>
+            <!-- {:else}
+            {/if} -->
+          </ul>
         </div>
-      </div>
+      <!-- {/if} -->
     </div>
 </div>
