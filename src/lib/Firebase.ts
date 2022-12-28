@@ -4,6 +4,7 @@ import { type User, getAuth, onAuthStateChanged, connectAuthEmulator } from "fir
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { connectStorageEmulator, getStorage } from "firebase/storage";
 import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
+import { writable } from "svelte/store";
 
 const USE_EMULATORS_ON_DEV = true;
 
@@ -35,11 +36,10 @@ isSupported()
 })
 .catch((err: any) => console.error("Failed to initialize analytics", err));
 
-// Listen for auth state changes
-export let user: User | null = null;
-onAuthStateChanged(auth, (u: User) => {
-  user = u;
-  // goto("/", { replaceState: true });
+// Listen for auth state changes, export as writable store
+export const userStore = writable<User | null>(null);
+onAuthStateChanged(auth, (u: User | null) => {
+  userStore.set(u);
 });
 
 // Set up emulators if on dev

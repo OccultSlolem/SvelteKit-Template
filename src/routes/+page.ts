@@ -1,13 +1,3 @@
 // since there's no dynamic data here, we can prerender
 // it so that it gets served as a static asset in production
-// export const prerender = true;
-
-
-import type { PageLoad } from "./$types";
-import { auth } from "$lib/Firebase";
-
-export const load = (({params}) => {
-  return {
-    auth: auth
-  }
-}) satisfies PageLoad
+export const prerender = true;

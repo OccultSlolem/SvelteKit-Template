@@ -10,8 +10,15 @@
   } from "firebase/auth";
   import { mdiAlertCircle, mdiInformationOutline } from '@mdi/js';
   import SvgIcon from '@jamescoyle/svelte-icon';
+  import { auth } from '$lib/Firebase';
 
-  export let auth: Auth;
+  /**
+   * When true, prevents email enumeration by only displaying a generic
+   * "password reset email sent" message.
+   */
+  const PREVENT_EMAIL_ENUMERATION = true;
+  const genericPassResetMessage = "If an account exists with that email, \
+  a password reset email has been sent."
 
   const appleProvider = new OAuthProvider("apple.com");
   appleProvider.addScope('email');
@@ -25,15 +32,6 @@
 
   let email = "";
   let password = "";
-
-  /**
-   * Changes between sign in and reset password mode. Clears the email and password fields.
-   */
-  function changeMode() {
-    is_forgot_password = !is_forgot_password;
-    email = "";
-    password = "";
-  }
 
   /**
    * Respond to keydown events. Closes the modal on escape.
@@ -59,6 +57,24 @@
   };
 
   /**
+   * Changes between sign in and reset password mode. Clears the email and password fields.
+   */
+   function changeMode() {
+    is_forgot_password = !is_forgot_password;
+    email = "";
+    password = "";
+  }
+
+  function handleSuccess() {
+    const modal = document.getElementById("signin-modal");
+    modal.checked = false;
+    is_loading = false;
+    is_forgot_password = false;
+    email = "";
+    password = "";
+  }
+
+  /**
    * Handle the sign in form submission. Logs error if in dev.
    *
    * @param err The auth error.
@@ -76,11 +92,12 @@
     }, 5000);
 
     if (is_forgot_password) {
-      error = "Failed to send password reset email. Please check your email address.";
+      if (typeof err === "string") error = err;
+      else error = "Invalid email address.";
       return;
     }
 
-    switch (errorMessage) {
+    switch (errorCode) {
       case "auth/user-disabled":
         error = "Your account has been disabled. Please contact support.";
         break;
@@ -97,14 +114,14 @@
   }
 
   /**
-   * Tell the user something with the info box for 5 seconds.
+   * Tell the user something with the info box for 7.5 seconds.
    * @param message
    */
   function tellUser(message: string) {
     info = message;
     setTimeout(() => {
       info = undefined;
-    }, 5000);
+    }, 7500);
   }
 
   /**
@@ -112,11 +129,30 @@
    */
   function handleResetPassword() {
     if (is_loading) return;
+    // validate
+    if (email === "") {
+      handleFail("Please enter your email address.", true);
+      return;
+    }
+    // check email with regex
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      handleFail("Please enter a valid email address.", true);
+      return;
+    }
+
+
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        tellUser("Password reset email sent. Please check your email.");
+        tellUser(genericPassResetMessage);
       })
-      .catch((err: any) => handleFail(err));
+      .catch((err: any) => {
+        if (PREVENT_EMAIL_ENUMERATION) {
+          tellUser(genericPassResetMessage);
+          return;
+        }
+        handleFail(err)
+      });
   }
 
   /**
@@ -141,13 +177,7 @@
     is_loading = true;
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential: User) => {
-        is_loading = false;
-        // Signed in
-        const user = userCredential.user;
-        // State change listener will handle navigation from here
-        // (See: /src/Firebase.ts)
-      })
+      .then((userCredential: User) => handleSuccess())
       .catch((err: any) => handleFail(err));
   }
 
@@ -155,7 +185,7 @@
     if (is_loading) return;
     is_loading = true;
     signInWithPopup(auth, googleProvider)
-      .then(() => is_loading = false)
+      .then((_: any) => handleSuccess())
       .catch((err: any) => handleFail(err));
   }
 
@@ -165,7 +195,7 @@
     is_loading = true;
     // No substantial .then as we're using a state change listener to handle navigation
     signInWithPopup(auth, appleProvider)
-      .then(() => is_loading = false)
+      .then((_: any) => handleSuccess())
       .catch((err: any) => handleFail(err));
   }
 
@@ -282,7 +312,7 @@
           </div>
         {/if}
 
-        <!-- Error Box -->
+        <!-- Error / Info Boxes -->
         {#if error}
           <div class="alert alert-error">
             <SvgIcon type="mdi" path={mdiAlertCircle} />

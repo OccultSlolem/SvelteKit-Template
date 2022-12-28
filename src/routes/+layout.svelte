@@ -9,9 +9,9 @@
 
   export let data: PageData;
 
-  onAuthStateChanged(data.auth, (user: User) => {
-    goto("/");
-  });  
+  // onAuthStateChanged(data.auth, (user: User) => {
+  //   goto("/");
+  // });  
 
   const navItems = [
     // On desktop, these will be shown in the center of the navbar

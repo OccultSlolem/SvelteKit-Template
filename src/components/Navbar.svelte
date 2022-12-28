@@ -3,11 +3,24 @@
   import SignInModal from "./SignInModal.svelte";
   import SvgIcon from "@jamescoyle/svelte-icon";
   import { mdiMenu, mdiHome, mdiAccount, mdiMessage } from "@mdi/js";
-  import { type User } from "firebase/auth";
-
-  export let user: User | null;
-
+  // import { type User } from "firebase/auth";
+  import { auth, userStore } from "$lib/Firebase";
+  import { goto } from "$app/navigation";
+  import { type User, signOut } from "firebase/auth";
+  // export let user: User | null;
+  
   export let navItems: { name: string; icon: string; link: string }[] = [];
+
+  let user: User | null;
+
+  userStore.subscribe((value: User | null) => {
+    user = value;
+  });
+
+  function handleSignout() {
+    signOut(auth);
+    goto("/");
+  }
 </script>
 
 <div class="navbar bg-base-100">
@@ -43,19 +56,27 @@
   <div class="navbar-end">
     <!-- DaisyUI avatar with a dropdown -->
     <div class="dropdown dropdown-end">
-      <div tabindex="0" class="m-1 btn btn-ghost rounded-full">
+      <label tabindex="0" class="m-1 btn btn-ghost rounded-full">
         <div class="avatar online avatar-placeholder">
           <span>u</span>
         </div>
         <!-- <img src={user.photo} alt="Avatar" class="avatar" /> -->
-      </div>
+      </label>
       <ul
         tabindex="0"
         class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
       >
         {#if user}
           <li>a</li>
-          <li>b</li>
+          <div class="divider"></div>
+          <li>
+            <button
+              class="btn btn-ghost"
+              on:click={handleSignout}
+            >
+              Sign out
+            </button>
+          </li>
         {:else}
           <li><label for="signin-modal" class="btn btn-ghost">Log in</label></li>
           <li><button class="btn btn-ghost">Sign up</button></li>
