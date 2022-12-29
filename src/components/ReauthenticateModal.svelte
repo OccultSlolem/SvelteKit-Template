@@ -28,7 +28,7 @@
   const googleAuthProvider = new GoogleAuthProvider();
   const appleAuthProvider = new OAuthProvider('apple.com');
 
-  $: authProvider = user.providerData[0].providerId;
+  $: authProvider = user?.providerData[0].providerId;
   let error: string | undefined = undefined;
   let is_loading = false;
   let password = '';

@@ -7,6 +7,13 @@
   import { goto } from "$app/navigation";
   import { type User, onAuthStateChanged } from "firebase/auth";
   import ReauthenticateModal from "../components/ReauthenticateModal.svelte";
+  import { userStore } from "$lib/Firebase";
+
+  let user: User | null = null;
+
+  userStore.subscribe((value: User | null) => {
+    user = value;
+  });
 
   export let data: PageData;
 
@@ -43,8 +50,9 @@
       <!-- Page content goes here -->
       <Navbar {navItems} />
       
-      <ReauthenticateModal />
-
+      {#if user}
+        <ReauthenticateModal />
+      {/if}
       <main>
         <slot />
       </main>

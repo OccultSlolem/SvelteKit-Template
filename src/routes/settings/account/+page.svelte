@@ -1,6 +1,9 @@
 <script lang="ts">
   import "../../../tailwind.css";
   import SvgIcon from "@jamescoyle/svelte-icon";
+  import DeleteAccountModal from "./DeleteAccountModal.svelte";
+  import DownloadDataModal from "./DownloadDataModal.svelte";
+  import EditAccountModal from "./EditAccountModal.svelte";
   import { 
     mdiAccountCircleOutline,
     mdiAccountEdit,
@@ -29,48 +32,40 @@
 
   const handleKeydown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
-      const checkbox = document.getElementById("download-data") as HTMLInputElement;
-      checkbox.checked = false;
+      const checkboxD = document.getElementById("download-data") as HTMLInputElement;
+      const checkboxE = document.getElementById("edit-account") as HTMLInputElement;
+      const checkboxDel = document.getElementById("delete-account") as HTMLInputElement;
+      checkboxD.checked = false;
+      checkboxE.checked = false;
+      checkboxDel.checked = false;
     }
   }
   
 </script>
-  
 
 <!-- Download data modal -->
 
 <svelte:window on:keydown="{handleKeydown}" />
 
-<!-- Invisible checkbox to toggle the modal -->
-<input type="checkbox" id="download-data" class="modal-toggle" />
+<DownloadDataModal />
+<EditAccountModal />
+<DeleteAccountModal />
 
-<div class="modal" id="download-data">
-  <div class="modal-box">
-    <div class="flex items-center justify-start">
-      <label for="download-data" class="btn btn-ghost btn-sm rounded-btn">
-        X
-      </label>
-      <h1 class="font-bold text-lg">Download your data</h1>
-    </div>
-    <div class="modal-body">
-      <p class="text-base">
-        You can download your data in a JSON file. This file contains all of your data, including your account details, your posts, your comments, and your likes.
-      </p>
-      <div class="flex justify-center items-center">
-        <button class="btn btn-primary btn-sm rounded-btn">
-          Download data
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-  
 <div class="flex justify-center align-middle">
   <div class="hero min-h-screen w-4/5 bg-base-200">
     <div class="hero-content">
       <!-- align middle, stack vertical -->
       <div class="flex flex-col justify-center items-center">
-        <SvgIcon type="mdi" class="h-12 w-12" path={mdiAccountCircleOutline} />
+        
+        <div class="flex items-center">
+          <button
+            class="btn btn-ghost btn-sm rounded-btn"
+            on:click="{() => goto("/settings")}"
+          >
+            &lt; &lt; Back
+          </button>
+          <SvgIcon type="mdi" class="h-12 w-12" path={mdiAccountCircleOutline} />
+        </div>
         <h1 class="text-5xl pb-5 font-bold">Account Settings</h1>
         
         {#each settings as menu}
