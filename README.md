@@ -30,20 +30,22 @@ create a new folder under the src/routes folder, like so:
 ## Features
 
  - Tailwind + DaisyUI
-  - Automatic dark mode switcher
+ - - Automatic dark mode switcher
  - Firebase
-  - Auth
-   - User settings, signin/signout, etc
-  - Functions
-  - Firestore
-  - Storage
-  - AppCheck with reCAPTCHA
-  - Analytics
-   - When in supported environment (ie production)
-  - Emulators
-   - Automatically uses emulators when in development mode
- - Hiding sensitive values (like the Firebase API key) using DotENV
-  - See .env.example to see what values you need to insert
+ - - Auth
+ - - - User settings, signin/signout, etc
+ - - Functions
+ - - Firestore
+ - - Storage
+ - - AppCheck with reCAPTCHA
+ - - Analytics
+ - - - When in supported environment (ie production)
+ - - Emulators
+ - - - Automatically uses emulators when in development mode
+ - - Hiding sensitive values (like the Firebase API key) using DotENV
+ - - - See .env.example to see what values you need to insert
+ - GDPR / CCPA Compliance
+ - - Users can request a copy of all their data or request data deletion
 
 ## Developing
 

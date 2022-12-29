@@ -7,7 +7,6 @@
   import { auth, userStore } from "$lib/Firebase";
   import { goto } from "$app/navigation";
   import { type User, signOut } from "firebase/auth";
-  // export let user: User | null;
   
   export let navItems: { name: string; icon: string; link: string }[] = [];
 
@@ -64,11 +63,12 @@
       </label>
       <ul
         tabindex="0"
-        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
+        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-fit min-w-52"
       >
         {#if user}
-          <li>a</li>
+          <li>{user.email}</li>
           <div class="divider"></div>
+          <li><a href="/settings" class="btn btn-ghost">Settings</a></li>
           <li>
             <button
               class="btn btn-ghost"
