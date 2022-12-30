@@ -125,7 +125,7 @@
 
     <!-- Body -->
     <div class="form-control">
-      <label class="input-group pt-2 pb-2">
+      <label class="input-group mt-2 mb-2">
         <span>Email</span>
         <input 
           type="email"
@@ -136,7 +136,7 @@
       </label>
       
       {#if authProvider === 'password'}
-      <label class="input-group pt-2 pb-2">
+      <label class="input-group mt-2 mb-2">
         <span>Password</span>
         <input 
           type="password"

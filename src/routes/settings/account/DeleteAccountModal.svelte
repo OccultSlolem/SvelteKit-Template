@@ -1,3 +1,4 @@
+<!-- FIXME: Federated auth cannot reauthenticate: auth._popupredirectresolver doesn't exist -->
 <script lang="ts">
   import { userStore, auth } from "$lib/Firebase";
   import {
@@ -69,7 +70,6 @@
       case 'google.com':
         await reauthenticateWithPopup(auth, googleProvider)
         .catch((err: any) => { handleFail(err); });
-
         followOn();
         break;
       case 'apple.com':

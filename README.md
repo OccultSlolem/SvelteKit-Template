@@ -29,6 +29,9 @@ create a new folder under the src/routes folder, like so:
 
 ## Features
 
+**Note**: This template is still very much under development and may be missing some of these
+features.
+
  - Tailwind + DaisyUI
  - - Automatic dark mode switcher
  - Firebase

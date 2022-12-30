@@ -218,7 +218,7 @@
     <div class="form-control">
       <!-- Inputs -->
       {#each formGroups as item}
-        <label class="input-group pt-2 pb-2">
+        <label class="input-group mt-2 mb-2">
           <span>{item.label}</span>
           <input 
             type={item.type}
@@ -231,7 +231,7 @@
     </div>
       
     <!-- Center, terms privacy links -->
-    <div class="flex justify-center pt-2 pb-2">
+    <div class="flex justify-center mt-2 mb-2">
       <a href="#" class="text-sm text-gray-600">Terms of Service</a>
       <span class="text-sm text-gray-600">&nbsp; | &nbsp;</span>
       <a href="#" class="text-sm text-gray-600">Privacy Policy</a>
@@ -245,7 +245,7 @@
       </label>
     </div>
     
-    <div class="flex pt-2 pb-2">
+    <div class="flex mt-2 mb-2">
       <button 
         class="btn btn-ghost"
         on:click={handlePasswordSignup}
@@ -257,7 +257,7 @@
     <!-- Federated auth -->
     <div class="flex">
       {#each signupOptions as item}
-        <div class="flex pt-2 pb-2">
+        <div class="flex mt-2 mb-2">
           <button 
             class="btn btn-ghost"
             on:click={item.follow}

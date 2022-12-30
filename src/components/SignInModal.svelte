@@ -266,7 +266,7 @@
         <div class="form-control">
           <!-- Inputs -->
           {#each formGroups as item}
-            <label class="input-group pt-2 pb-2">
+            <label class="input-group mt-2 mb-2">
               <span>{item.label}</span>
               <input 
                 type={item.type}

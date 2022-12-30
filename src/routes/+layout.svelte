@@ -1,18 +1,57 @@
 <script lang="ts">
-  import Footer from "../footer/Footer.svelte";
-  import Navbar from "../components/Navbar.svelte";
-  import SvgIcon from "@jamescoyle/svelte-icon";
-  import { mdiHome, mdiAccount, mdiMessage } from "@mdi/js";
-  import type { PageData } from "./$types";
-  import { goto } from "$app/navigation";
-  import { type User, onAuthStateChanged } from "firebase/auth";
-  import ReauthenticateModal from "../components/ReauthenticateModal.svelte";
-  import { userStore } from "$lib/Firebase";
+  import Footer from '../footer/Footer.svelte';
+  import Navbar from '../components/Navbar.svelte';
+  import SvgIcon from '@jamescoyle/svelte-icon';
+  import type { PageData } from './$types';
+  import { goto } from '$app/navigation';
+  import { type User } from 'firebase/auth';
+  import ReauthenticateModal from '../components/ReauthenticateModal.svelte';
+  import { userStore } from '$lib/Firebase';
+  import { notificationStore } from '$lib/stores/Notifications';
+  import { 
+    mdiHome,
+    mdiAccount,
+    mdiMessage,
+    mdiInformationOutline,
+    mdiCheckCircleOutline,
+    mdiAlertCircleOutline,
+    mdiAlertBoxOutline,
+  } from '@mdi/js';
 
   let user: User | null = null;
+  let currentNotification: {severity: string, message: string} | null = null;
+  let notificationIcon = mdiInformationOutline;
+  let notificationAlertClass = 'alert-info';
+
+  $: {
+    if (currentNotification)
+    switch (currentNotification.severity) {
+      case 'success':
+        notificationIcon = mdiCheckCircleOutline;
+        notificationAlertClass = 'alert-success';
+        break;
+      case 'error':
+        notificationIcon = mdiAlertCircleOutline;
+        notificationAlertClass = 'alert-error';
+        break;
+      case 'warning':
+        notificationIcon = mdiAlertBoxOutline;
+        notificationAlertClass = 'alert-warning';
+        break;
+      case 'info':
+      default:
+        notificationIcon = mdiInformationOutline;
+        notificationAlertClass = 'alert-info';
+        break;
+    }
+  }
 
   userStore.subscribe((value: User | null) => {
     user = value;
+  });
+
+  notificationStore.subscribe((value: {severity: string, message: string} | null) => {
+    currentNotification = value;
   });
 
   export let data: PageData;
@@ -21,19 +60,19 @@
     // On desktop, these will be shown in the center of the navbar
     // On mobile, these will be shown as a sidebar
     {
-      name: "Home",
+      name: 'Home',
       icon: mdiHome,
-      link: "/",
+      link: '/',
     },
     {
-      name: "Account",
+      name: 'Account',
       icon: mdiAccount,
-      link: "/account",
+      link: '/account',
     },
     {
-      name: "Messaging",
+      name: 'Messaging',
       icon: mdiMessage,
-      link: "/messaging",
+      link: '/messaging',
     },
   ];
 </script>
@@ -56,6 +95,14 @@
       <main>
         <slot />
       </main>
+
+      <!-- DaisyUI alert box that follows the screen around -->
+      {#if currentNotification}
+        <div class="alert {notificationAlertClass} fixed bottom-0 w-max m-4 z-50">
+          <SvgIcon type="mdi" path={notificationIcon} />
+          <span>{currentNotification.message}</span>
+        </div>
+      {/if}
 
       <Footer />
     </div>
